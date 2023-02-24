@@ -8,7 +8,8 @@
   <p>Get your lists here...</p>
   <div class="cards">
     <% @lists.each do |list| %>
-      <div class="card-list" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/720/1x/cbbc/bp-film-review-index.jpg)">
+      <%# <% list_image = list.photo.attached? ? list_image = cl_image_path(list.photo.key) : '"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6dg1jZFBIysVcaGP9S9XxtubGiVuPS5XQ3g&usqp=CAU"' %>
+      <div class="card-list" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.photo.attached? ? cl_image_path(list.photo.key) : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6dg1jZFBIysVcaGP9S9XxtubGiVuPS5XQ3g&usqp=CAU" %> )" >
         <%= link_to list.name, list_path(list) %>
       </div>
     <% end %>
