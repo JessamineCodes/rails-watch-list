@@ -1,11 +1,21 @@
 <h1><%= @list.name %></h1>
 
 <p>Fill your eyes with these bad boyz...</p>
-<ul>
-<% @bookmarks.each do |bookmark| %>
-<li><%= bookmark.movie.title %> | <%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: "delete"}%> </li>
-<% end %>
-</ul>
+<div class="row">
+  <% @bookmarks.each do |bookmark| %>
+    <div class="card-bookmark col-6">
+      <img src=<%= bookmark.movie.poster_url %>>
+      <div class="card-bookmark-infos">
+        <h2><%= bookmark.movie.title %> </h2>
+        <p><%= bookmark.movie.overview %></p>
+        <p><%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: "delete"}%></p>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <%= link_to "Lists", lists_path %>
 <%= link_to "Add new movie", new_list_bookmark_path(@list) %>
+
+<%# <h3>Testing</h3>
+<%= render 'lists/all'%>

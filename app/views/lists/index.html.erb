@@ -1,10 +1,17 @@
-<h1>Sweet, sweet lists</h1>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://cdni.iconscout.com/illustration/premium/thumb/mother-daughter-and-son-enjoying-film-at-movie-theatre-4393230-3696990.png);">
+  <div class="container">
+    <h1>Sweet, sweet lists</h1>
+  </div>
+</div>
 
-<p>Get your lists here...</p>
-<ul>
-  <% @lists.each do |list| %>
-   <li><%= link_to list.name, list_path(list) %></li>
-  <% end %>
-</ul>
-
-<%= link_to "Add new list", new_list_path %>
+<div class="container">
+  <p>Get your lists here...</p>
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <div class="card-list" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/720/1x/cbbc/bp-film-review-index.jpg)">
+        <%= link_to list.name, list_path(list) %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to "Add new list", new_list_path %>
+</div>
