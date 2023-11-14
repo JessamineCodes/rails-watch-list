@@ -20,5 +20,5 @@ movies_array.each do |movie|
     poster_url: img_url+movie["poster_path"],
     rating: movie["vote_average"]
   )
-  new_movie.save
+  new_movie.save!
 end

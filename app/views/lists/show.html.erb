@@ -1,26 +1,38 @@
-<h1></h1>
 <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @list.photo.attached? ? cl_image_path(@list.photo.key) : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6dg1jZFBIysVcaGP9S9XxtubGiVuPS5XQ3g&usqp=CAU" %>);">
   <div class="container">
     <h1><%= @list.name %></h1>
   </div>
 </div>
-
+<div class="container">
 <p>Fill your eyes with these bad boyz...</p>
-<div class="row">
-  <% @bookmarks.each do |bookmark| %>
-    <div class="card-bookmark col-6">
-      <img src=<%= bookmark.movie.poster_url %>>
-      <div class="card-bookmark-infos">
-        <h2><%= bookmark.movie.title %> </h2>
-        <p><%= bookmark.movie.overview %></p>
-        <p><%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: "delete"}%></p>
+  <div class="row">
+    <% @bookmarks.each do |bookmark| %>
+    <div class="col-md-6">
+      <div class="card-bookmark">
+        <img src=<%= bookmark.movie.poster_url %>>
+        <div class="card-bookmark-infos">
+          <h2><%= bookmark.movie.title %> </h2>
+          <p><%= bookmark.movie.overview %></p>
+          <p><i class="fa-solid fa-comment"></i> <%= bookmark.comment %></p>
+          <p><%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: "delete"}%></p>
+        </div>
       </div>
     </div>
+    <% end %>
+  </div>
+
+<div class="form-bookmark">
+  <h2>Whack a movie onto the list...</h2>
+  <%= simple_form_for [@list, @bookmark_new] do |f| %>
+    <%= f.association :movie %>
+    <%= f.input :comment %>
+    <%= f.button :submit, 'Submit', class: 'btn btn-primary'  %>
   <% end %>
 </div>
 
-<%= link_to "Lists", lists_path, class: "btn btn-primary" %>
-<%= link_to "Add new movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+<%= link_to "Back to All Lists", lists_path, class: "btn btn-primary" %>
+<%# link_to "Add new movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+</div>
 
 <%# <h3>Testing</h3>
 <%= render 'lists/all'%>
