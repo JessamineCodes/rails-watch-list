@@ -1,5 +1,8 @@
 class BookmarksController < ApplicationController
+  before_action :find_list, only: [:new, :create]  # Add a before_action to find the list
+
   def new
+    # raise
     @bookmark = Bookmark.new
     @list = List.find(params[:list_id])
   end
@@ -32,4 +35,9 @@ class BookmarksController < ApplicationController
     # {"authenticity_token"=>"[FILTERED]", "bookmark"=>{"movie_id"=>"13", "comment"=>"I think this is meant to be scary"}, "commit"=>"Create Bookmark", "list_id"=>"7"}
   end
 
+  def find_list
+    @list = List.find(params[:list_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'List not found'  # Redirect if list is not found
+  end
 end

@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="container">
-<p>Fill your eyes with these bad boyz...</p>
+  <p>Fill your eyes with these bad boyz...</p>
   <div class="row">
     <% @bookmarks.each do |bookmark| %>
     <div class="col-md-6">
@@ -14,23 +14,50 @@
           <h2><%= bookmark.movie.title %> </h2>
           <p><%= bookmark.movie.overview %></p>
           <p><i class="fa-solid fa-comment"></i> <%= bookmark.comment %></p>
-          <p><%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: "delete"}%></p>
+          <p>
+          <%= link_to  bookmark_path(bookmark), data:{turbo_method: "delete"} do%>
+          <i class="fa-solid fa-trash"></i>
+          <% end %>
+          </p>
         </div>
       </div>
     </div>
     <% end %>
   </div>
 
-<div class="form-bookmark">
-  <h2>Whack a movie onto the list...</h2>
-  <%= simple_form_for [@list, @bookmark_new] do |f| %>
-    <%= f.association :movie %>
-    <%= f.input :comment %>
-    <%= f.button :submit, 'Submit', class: 'btn btn-primary'  %>
-  <% end %>
-</div>
 
-<%= link_to "Back to All Lists", lists_path, class: "btn btn-primary" %>
+  <div class="form-bookmark">
+    <h4>Whack a movie onto the list...</h4>
+    <%= simple_form_for [@list, @bookmark_new] do |f| %>
+      <%= f.association :movie %>
+      <%= f.input :comment %>
+      <%= f.button :submit, 'Submit', class: 'btn btn-success'  %>
+    <% end %>
+  </div>
+
+  <h2>The reviews for <%= @list.name %> are in!</h2>
+  <div class="row">
+    <%@reviews.each do |review| %>
+      <div class="card-review col-md-3">
+        <i class="fa-regular fa-comments"></i> <%= review.content %>
+        <br>
+        <i class="fa-solid fa-star"></i> <%= review.rating %>
+        <br>
+        <i class="fa-solid fa-clock"></i> <%= review.created_at.strftime("%d-%m-%Y %H:%M") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-review">
+    <h4>Add a review...</h4>
+    <%= simple_form_for [@list, @review] do |f| %>
+      <%= f.input :rating %>
+      <%= f.input :content %>
+      <%= f.button :submit, 'Submit', class: 'btn btn-warning'  %>
+    <% end %>
+  </div>
+
+  <%= link_to "Back to All Lists", lists_path, class: "btn btn-primary" %>
 <%# link_to "Add new movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
 </div>
 
